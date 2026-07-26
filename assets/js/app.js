@@ -406,6 +406,19 @@ window.APP = (function () {
     ]));
   }
 
+  /* --- listening & media ------------------------------------------------- */
+  function buildMedia() {
+    main.appendChild(el('section', { class: 'sec', id: 'media' }, [
+      sectionHead({ kicker: 'Beyond the page', title: 'Listening, TV & spoken Arabic', meta: [L.media.length + ' sources', 'Fuṣḥā + Gulf'] }),
+      el('p', {
+        class: 'lede',
+        text: 'Everything above teaches the written register. None of it tells you what a room full of Emiratis sounds like — for that you need broadcast audio, and there is no shortage of it for free. Start with subtitled street interviews, keep radio on in the background, and save native podcasts for when you can follow a conversation.'
+      }),
+      el('div', { class: 'cards' }, L.media.map(resourceCard)),
+      el('div', { class: 'empty', hidden: true, text: 'No listening sources match your filters.' })
+    ]));
+  }
+
   /* --- letter tracing --------------------------------------------------- */
   function buildTracer() {
     let idx = 0;
@@ -844,6 +857,7 @@ window.APP = (function () {
       .concat(L.phases.map(function (p) { return { id: p.id, num: p.num, label: p.short, phase: true }; }))
       .concat([
         { id: 'tools', num: '·', label: 'Dictionaries & tools' },
+        { id: 'media', num: '·', label: 'Listening & media' },
         { id: 'reference', num: '·', label: 'Reference tables' },
         { id: 'plan', num: '·', label: 'Daily plan' },
         { id: 'faq', num: '·', label: 'Questions' }
@@ -1086,6 +1100,7 @@ window.APP = (function () {
   buildPractice();
   buildPhases();
   buildTools();
+  buildMedia();
   buildReference();
   buildPlan();
   buildFaq();
