@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="The Free Arabic Library">
+  <!-- Maskable: artwork kept inside the safe circle (40% radius from centre)
+       so Android's mask can crop the corners without clipping the mark. -->
+  <rect width="512" height="512" fill="#16214A"/>
+  <g fill="none" stroke="#D9B45C" stroke-width="26" stroke-linecap="square">
+    <path d="M168 186v148"/>
+    <path d="M232 186v118a30 30 0 0 0 30 30h22"/>
+    <path d="M312 250h34a24 24 0 0 1 24 24v60"/>
+    <path d="M312 250v84"/>
+  </g>
+  <circle cx="312" cy="204" r="13" fill="#D9B45C"/>
+</svg>

@@ -1,0 +1,32 @@
+{
+  "name": "The Free Arabic Library",
+  "short_name": "Arabic Library",
+  "description": "Alphabet to Qur'an mastery: eight phases, 92 free resources, 310 flashcards, reference tables and a daily routine — offline, with no account.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#16214A",
+  "theme_color": "#16214A",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "books", "productivity"],
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Review due cards", "url": "./#today" },
+    { "name": "Practice decks", "url": "./#practice" },
+    { "name": "Reference tables", "url": "./#reference" }
+  ]
+}
