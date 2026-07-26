@@ -1,0 +1,64 @@
+name: Deploy site to GitHub Pages
+
+# Publishes the Free Arabic Library as a static site.
+#   /                 the app (index.html + assets/)
+#   /standalone.html  the one-file offline build
+#
+# configure-pages enables Pages for the repository on the first run, so no
+# manual switch in Settings is needed — the workflow's pages:write permission
+# does it. GitHub Pages requires a public repository, or GitHub Pro/Team on a
+# private one.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/**'
+      - 'dist/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Rebuild the standalone bundle
+        run: node build.js
+
+      - name: Assemble the site
+        run: |
+          mkdir -p site
+          cp index.html site/
+          cp -r assets site/
+          cp dist/index.html site/standalone.html
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
