@@ -14,7 +14,8 @@ Everything listed is free, freemium with a genuinely usable free tier, or public
 | Part | Contents |
 | --- | --- |
 | 8 phases | Script → MSA foundations → naḥw & ṣarf → vocabulary → Qur'anic Arabic → classical texts → tajwīd → mastery |
-| 92 resources | Each with where to find it, why it's here, and a free / freemium / public-domain label |
+| 103 resources | Each with where to find it, why it's here, and a free / freemium / public-domain label |
+| Listening & media | Radio, Emirati TV, subtitled street interviews, native podcasts — the spoken register the written path doesn't cover |
 | Text ladder | The nine classical books in traditional order, *Qaṣaṣ al-Nabiyyīn* → the *Muʿallaqāt* |
 | Reference tables | 28 letters with articulation points · vowel marks · iʿrāb · sentence structures · pronouns · broken plurals · the ten verb forms · 14 tajwīd rules · makhārij · 46 Qur'anic function words · 40 high-frequency roots |
 | 14 flashcard decks | 310 cards generated from those tables — letters, forms, makhārij, sun/moon, marks, function words, particle roles, roots, verb forms, tajwīd, pronouns, plurals, cases, sentence types |
