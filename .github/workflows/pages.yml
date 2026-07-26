@@ -9,14 +9,11 @@ name: Deploy site to GitHub Pages
 # does it. GitHub Pages requires a public repository, or GitHub Pro/Team on a
 # private one.
 
+# Manual only. Pages cannot publish a private repo on a free account, so an
+# automatic trigger just mails a failure on every push — Firebase Hosting
+# (firebase-hosting.yml) is the live host. Make the repo public, or enable
+# Pages by hand on Pro, and this becomes usable again from the Actions tab.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'index.html'
-      - 'assets/**'
-      - 'dist/**'
-      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -38,16 +35,11 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
 
-      - name: Rebuild the standalone bundle
-        run: node build.js
-
-      - name: Assemble the site
+      - name: Build the site
         run: |
-          mkdir -p site
-          cp index.html site/
-          cp -r assets site/
-          cp dist/index.html site/standalone.html
-          touch site/.nojekyll
+          node build.js --check
+          node build.js
+          cp dist/index.html dist/site/standalone.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -57,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: dist/site
 
       - name: Deploy
         id: deployment

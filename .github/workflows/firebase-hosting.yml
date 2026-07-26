@@ -1,0 +1,68 @@
+name: Deploy to Firebase Hosting
+
+# Publishes dist/site to Firebase Hosting on every push to main.
+#
+# Requires one repository secret: FIREBASE_SERVICE_ACCOUNT_ARABIC
+#   Firebase console → Project settings → Service accounts → Generate new
+#   private key, then paste the whole JSON file into
+#   Settings → Secrets and variables → Actions → New repository secret.
+#
+# Set the project id in .firebaserc before the first run.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'manifest.webmanifest'
+      - 'sw.js'
+      - 'assets/**'
+      - 'build.js'
+      - 'firebase.json'
+      - '.firebaserc'
+      - '.github/workflows/firebase-hosting.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: firebase-hosting
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate the flashcard decks
+        run: node build.js --check
+
+      - name: Build the site
+        run: node build.js
+
+      - name: Read the project id
+        id: project
+        run: echo "id=$(node -p "require('./.firebaserc').projects.default")" >> "$GITHUB_OUTPUT"
+
+      - name: Fail early if the project id is still a placeholder
+        run: |
+          if [ "${{ steps.project.outputs.id }}" = "REPLACE_WITH_FIREBASE_PROJECT_ID" ]; then
+            echo "::error::Set your Firebase project id in .firebaserc before deploying."
+            exit 1
+          fi
+
+      - name: Deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARABIC }}
+          projectId: ${{ steps.project.outputs.id }}
+          channelId: live

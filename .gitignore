@@ -1,3 +1,6 @@
 node_modules/
 package-lock.json
 .DS_Store
+
+# Built by build.js in CI; the two shareable single-file builds are committed.
+dist/site/
